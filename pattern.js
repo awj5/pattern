@@ -1,8 +1,16 @@
-/* Pattern
+/*
+
+Pattern
 A vanilla JavaScript URL hash handler.
 https://github.com/adamwjohnson5/pattern
 By Adam Johnson
-MIT License 2019 */
+MIT License 2019
+
+Usage:
+
+Pattern.hash();
+
+*/
 "use strict";
 
 class Pattern {
