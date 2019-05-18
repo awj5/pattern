@@ -7,10 +7,13 @@ Pattern will assign global variables on hash change and look for a function to c
 <img src="pattern.png" width="160" height="200">
 
 ## Initialize
+
 ```
 Pattern.hash();
 ```
+
 ## Examples
+
 http://example.com#/page/?id=1  
 This URL will look for a function called ```pageLoad()```, create a global variable called ```window.id``` with a value of ```1``` and assign ```'page'``` to the ```window.section``` global variable.
 
