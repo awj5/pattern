@@ -36,11 +36,6 @@ function hashHandler() {
     if (!urlSection) {
         urlSection = 'home';
     }
-    // Call section function if exists
-    const func = window[urlSection + 'Load'];
-    if (typeof func === 'function') {
-        func();
-    }
     window.section = urlSection; // Set section global var
     // Get URL params
     var urlParams = i.split('?').pop();
@@ -48,5 +43,10 @@ function hashHandler() {
     // Loop all params and create global vars
     for (let x of urlParams.entries()) {
         window[x[0]] = x[1];
+    }
+    // Call section function if exists
+    const func = window[urlSection + 'Load'];
+    if (typeof func === 'function') {
+        func();
     }
 }
