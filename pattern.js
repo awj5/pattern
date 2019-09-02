@@ -38,7 +38,7 @@ function hashHandler() {
     }
     // Call section function if exists
     const func = window[urlSection + 'Load'];
-    if (urlSection !== window.section && typeof func === 'function') {
+    if (typeof func === 'function') {
         func();
     }
     window.section = urlSection; // Set section global var
