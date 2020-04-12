@@ -1,7 +1,7 @@
 /*
 
 Pattern v1.1
-A vanilla JavaScript URL hash handler.
+A vanilla JavaScript URL hash handler. Compatible with modern browsers only (ES6+).
 https://github.com/adamwjohnson5/pattern
 By Adam Johnson
 MIT License 2019
@@ -31,6 +31,7 @@ class Pattern {
         window.addEventListener('hashchange', hashHandler.bind(this, this.slugMode));
         hashHandler(this.slugMode);
     }
+    
 }
 
 /* URL hash */

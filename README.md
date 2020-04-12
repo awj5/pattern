@@ -1,6 +1,6 @@
 # Pattern
 
-A vanilla JavaScript URL hash handler.
+A vanilla JavaScript URL hash handler. Compatible with modern browsers only (ES6+).
 
 Pattern will assign global variables on hash change and look for a function to call (examples below).
 
