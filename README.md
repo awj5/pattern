@@ -9,7 +9,9 @@ Pattern will assign global variables on hash change and look for a function to c
 ## Initialize
 
 ```
-Pattern.hash();
+let i = new Pattern();
+i.slugMode = true; // Optional - Will ignore section change if url parameter is defined
+i.hash();
 ```
 
 ## Examples
