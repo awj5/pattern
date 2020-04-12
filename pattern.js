@@ -33,7 +33,7 @@ function hashHandler() {
         urlSection = urlSection.substr(0, urlSection.indexOf('?'));
     }
     // Set section to 'home' if not defined
-    if (!urlSection) {
+    if (! urlSection) {
         urlSection = 'home';
     }
     window.section = urlSection; // Set section global var
