@@ -1,6 +1,6 @@
 /*
 
-Pattern
+Pattern v1.0
 A vanilla JavaScript URL hash handler.
 https://github.com/adamwjohnson5/pattern
 By Adam Johnson
