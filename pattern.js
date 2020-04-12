@@ -8,9 +8,9 @@ MIT License 2019
 
 Usage:
 
-let i = new Pattern();
-i.slugMode = true; // Optional - Will ignore section change if url parameter is defined
-i.hash();
+let pttrn = new Pattern();
+pttrn.slugMode = true; // Optional - Will ignore section change if url parameter is defined
+pttrn.hash();
 
 */
 "use strict";
