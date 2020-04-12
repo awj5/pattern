@@ -9,7 +9,7 @@ MIT License 2019
 Usage:
 
 let pttrn = new Pattern();
-pttrn.slugMode = true; // Optional - Will ignore section change if url parameter is defined
+pttrn.slugMode = true; // Optional - Will ignore section/page change if a URL parameter is defined
 pttrn.hash();
 
 */
@@ -17,7 +17,7 @@ pttrn.hash();
 
 class Pattern {
 
-    /* Slug mode will ignore section change if url parameter is defined */
+    /* slugMode will ignore section/page change if a URL parameter is defined */
 
     slugMode(status) {
         this.slugMode = status;
@@ -44,7 +44,7 @@ function hashHandler(slugMode) {
     if (j !== -1) {
         urlSection = urlSection.substr(0, urlSection.indexOf('?'));
     }
-    // Set section to 'home' if not defined or slug mode is on and url parameter is defined
+    // Set section to 'home' if not defined or slugMode is enabled and a URL parameter is defined
     if (! urlSection || slugMode && j !== -1) {
         urlSection = 'home';
     }
