@@ -1,65 +1,63 @@
 /*
 
-Pattern v1.1
-A vanilla JavaScript URL hash handler. Compatible with modern browsers only (ES6+).
+Pattern v2
+A vanilla JavaScript router utilizing the HTML5 history API. Compatible with modern browsers only (ES6+).
 https://github.com/adamwjohnson5/pattern
 By Adam Johnson
 MIT License 2019
 
 Usage:
 
-let pttrn = new Pattern();
-pttrn.slugMode = true; // Optional - Will ignore section/page change if a URL parameter is defined
-pttrn.hash();
+Pattern.init();
+history.pushState(null, null, 'about'); // Change URL with pushState
 
 */
 "use strict";
 
 class Pattern {
-
-    /* slugMode will ignore section/page change if a URL parameter is defined */
-
-    slugMode(status) {
-        this.slugMode = status;
-    }
     
-    /* Initiate hash handler */
+    /* Initiate Pattern */
     
-    hash() {
+    static init() {
         window.section; // Global var
-        // Listen for URL hash change
-        window.addEventListener('hashchange', hashHandler.bind(this, this.slugMode));
-        hashHandler(this.slugMode);
+        // Listen for URL change
+        window.addEventListener('popstate', urlHandler); // Listen for browser back and forward buttons
+        const pushState = history.pushState;
+        history.pushState = function() {
+            pushState.apply(history, arguments);
+            urlHandler();
+        };
+        urlHandler(); // Fire on init
     }
     
 }
 
-/* URL hash */
+/* URL handler */
 
-function hashHandler(slugMode) {
-    let i = location.hash; // Get URL hash
+function urlHandler() {
     // Get section
-    var urlSection = i.replace('#', '');
-    urlSection = urlSection.replace(/\//g, '');
-    let j = i.indexOf('?');
-    if (j !== -1) {
-        urlSection = urlSection.substr(0, urlSection.indexOf('?'));
+    var urlSection = location.pathname.replace('/', '');
+    // Check for params
+    if (urlSection.indexOf('?') !== -1) {
+        urlSection = urlSection.substr(0, urlSection.indexOf('?')); // Remove params from section
     }
-    // Set section to 'home' if not defined or slugMode is enabled and a URL parameter is defined
-    if (! urlSection || slugMode && j !== -1) {
+    // Rename to 'home' if section empty
+    if (! urlSection) {
         urlSection = 'home';
     }
     window.section = urlSection; // Set section global var
     // Get URL params
-    var urlParams = i.split('?').pop();
+    var urlParams = location.search.split('?').pop();
     urlParams = new URLSearchParams(urlParams);
     // Loop all params and create global vars
     for (let x of urlParams.entries()) {
-        window[x[0]] = x[1];
+        window[x[0]] = x[1]; // Set global var
     }
     // Call section function if exists
     const func = window[urlSection + 'Load'];
     if (typeof func === 'function') {
         func();
+    } else if (typeof rewriteLoad === 'function') { // Check for rewrite func
+        rewriteLoad(); // Use to call other load function
     }
 }
