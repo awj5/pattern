@@ -9,7 +9,7 @@ Pattern will assign global variables on URL change and look for a function to ca
 ## Initialize
 
 ```
-Pattern.init(); // Change URL with pushState history.pushState(null, null, 'about');
+Pattern.init(); // Change URL with pushState eg. history.pushState(null, null, 'about');
 ```
 
 ## Examples
