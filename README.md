@@ -22,7 +22,7 @@ This URL will look for a function called ```homeLoad()``` (```'home'``` is used 
 
 ## Advanced
 
-Your app can include a function called rewriteLoad() which will be called if there is no load function for a section eg. if the url is http://example.com/page and there is no pageLoad() function in your app then rewriteLoad() is called instead. This is useful if would like to include a dynamic slug in your URL.
+Your app can include a function called rewriteLoad() which will be called if there is no load function for a section eg. if the url is http://example.com/page and there is no pageLoad() function in your app then rewriteLoad() is called instead. This is useful if you would like to include a dynamic slug in your URL.
 
 ### Example
 
