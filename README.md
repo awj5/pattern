@@ -32,4 +32,4 @@ function rewriteLoad() {
 }
 ```
 
-## [MIT License](https://en.wikipedia.org/wiki/MIT_License) 2019
+### [MIT License](https://en.wikipedia.org/wiki/MIT_License) 2019
