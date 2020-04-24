@@ -32,8 +32,6 @@ class Pattern {
     
 }
 
-/* URL handler */
-
 function urlHandler() {
     // Get section
     var urlSection = location.pathname.replace('/', '');
