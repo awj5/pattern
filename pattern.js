@@ -1,12 +1,17 @@
 /*
+
 Pattern v2.0
 A vanilla JavaScript router utilizing the HTML5 history API. Compatible with modern browsers only (ES6+).
 https://github.com/adamwjohnson5/pattern
 By Adam Johnson
 MIT License 2019
+
 Usage:
+
 Pattern.init();
+
 history.pushState(null, null, 'about'); // Change URL with pushState
+
 */
 "use strict";
 
