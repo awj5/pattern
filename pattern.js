@@ -20,7 +20,7 @@ class Pattern {
     static init() {
         window.section; // Global var
         // Listen for URL change
-        window.addEventListener('popstate', urlHandler); // Listen for browser back and forward buttons
+        window.addEventListener('popstate', this.urlHandler); // Listen for browser back and forward buttons
         const pushState = history.pushState;
         history.pushState = function() {
             pushState.apply(history, arguments);
