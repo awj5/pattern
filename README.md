@@ -22,7 +22,7 @@ This URL will look for a function called ```homeLoad()``` (```'home'``` is used 
 
 ## Advanced
 
-When you initiate Pattern you can inclide a root path. This is useful if your app is not located in the root of your domain ie. https://example.com/myapp
+When you initiate Pattern you can include a root path. This is useful if your app is not located in the root of your domain ie. https://example.com/myapp
 
 ### Example
 
