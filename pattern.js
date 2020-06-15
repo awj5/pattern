@@ -1,6 +1,6 @@
 /*
 
-Pattern v2.0
+Pattern v2.1
 A vanilla JavaScript router utilizing the HTML5 history API. Compatible with modern browsers only (ES6+).
 https://github.com/adamwjohnson5/pattern
 By Adam Johnson
@@ -17,7 +17,7 @@ history.pushState(null, null, 'about'); // Change URL with pushState
 "use strict";
 
 class Pattern {
-    static init() {
+    static init(rootPath) { // Root path optional
         window.section; // Global var
         
         // Listen for URL change
@@ -25,15 +25,16 @@ class Pattern {
         const pushState = history.pushState;
         history.pushState = function() {
             pushState.apply(history, arguments);
-            urlHandler();
+            urlHandler(rootPath);
         };
-        urlHandler(); // Fire on init
+        urlHandler(rootPath); // Fire on init
     }
 }
 
-function urlHandler() {
+function urlHandler(rootPath) {
     // Get section
-    var urlSection = location.pathname.replace('/', '');
+    var urlSection = location.pathname.replace(rootPath, ''); // Remove root path
+    urlSection = urlSection.replace('/', '');
     
     // Check for params
     if (urlSection.indexOf('?') !== -1) {
