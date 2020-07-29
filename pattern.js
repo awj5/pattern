@@ -23,10 +23,12 @@ class Pattern {
         // Listen for URL change
         window.addEventListener('popstate', urlHandler); // Listen for browser back and forward buttons
         const pushState = history.pushState;
+        
         history.pushState = function() {
             pushState.apply(history, arguments);
             urlHandler(rootPath);
         };
+        
         urlHandler(rootPath); // Fire on init
     }
 }
@@ -45,6 +47,7 @@ function urlHandler(rootPath) {
     if (! urlSection) {
         urlSection = 'home';
     }
+    
     window.section = urlSection; // Set section global var
     
     // Get URL params
@@ -58,6 +61,7 @@ function urlHandler(rootPath) {
     
     // Call section function if exists
     const func = window[urlSection + 'Load'];
+    
     if (typeof func === 'function') {
         func();
     } else if (typeof rewriteLoad === 'function') { // Check for rewrite func
