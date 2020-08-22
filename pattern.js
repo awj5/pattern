@@ -21,7 +21,11 @@ class Pattern {
         window.section; // Global var
         
         // Listen for URL change
-        window.addEventListener('popstate', urlHandler); // Listen for browser back and forward buttons
+        window.addEventListener('popstate', () => {
+            // Browser back or forward fired
+            urlHandler(rootPath);
+        });
+        
         const pushState = history.pushState;
         
         history.pushState = function() {
