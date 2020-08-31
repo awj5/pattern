@@ -41,10 +41,10 @@ function urlHandler(rootPath) {
     
     // Check for URL params
     if (urlSection.indexOf('?') !== -1) {
-        urlSection = urlSection.substr(0, urlSection.indexOf('?')); // Remove all URL params from section name
+        urlSection = urlSection.substr(0, urlSection.indexOf('?')); // Remove all URL params from section
     }
     
-    window.pattern = ! urlSection ? 'home' : urlSection; // Set global var to 'home' if empty
+    window.pattern = ! urlSection ? 'home' : urlSection; // Set section var to 'home' if empty
     
     // Get URL params
     var urlParams = location.search.split('?').pop();
@@ -52,7 +52,7 @@ function urlHandler(rootPath) {
     
     // Loop all params and create global vars
     for (let param of urlParams.entries()) {
-        window[param[0] + 'Ptrn'] = param[1];
+        window[param[0]] = param[1];
     }
     
     // Loop all global vars
@@ -66,7 +66,7 @@ function urlHandler(rootPath) {
     }
     
     // Call section function if exists
-    const func = window[window.pattern + 'Pattern'];
+    const func = window[window.pattern];
     
     if (typeof func === 'function') {
         func();

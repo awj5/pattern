@@ -17,10 +17,10 @@ Pattern.init(); // Change URL with pushState eg. history.pushState(null, null, '
 ## Examples
 
 https://example.com/page?id=1  
-This URL will look for a function called ```pagePattern()```, create a variable called ```window.idPtrn``` with a value of ```1``` and assign ```'page'``` to the ```window.pattern``` variable.
+This URL will look for a function called ```page()```, create a variable called ```window.id``` with a value of ```1``` and assign ```'page'``` to the ```window.pattern``` variable.
 
 https://example.com/?id=2&page=5  
-This URL will look for a function called ```homePattern()``` (```'home'``` is used when no path is defined), create a variable called ```window.idPtrn``` with a value of ```2```, a variable called ```window.pagePtrn``` with a value of ```5``` and assign ```'home'``` to the ```window.pattern``` variable.
+This URL will look for a function called ```home()``` (```'home'``` is used when no path is defined), create a variable called ```window.id``` with a value of ```2```, a variable called ```window.page``` with a value of ```5``` and assign ```'home'``` to the ```window.pattern``` variable.
 
 ## Advanced
 
@@ -30,7 +30,7 @@ When you initiate Pattern you can include a root path. This is useful if your ap
 Pattern.init('myapp/');
 ```
 
-Your app can include a function called ```patternLoad()``` which will be called if there is no unique function for ```window.pattern``` eg. if the url is http://example.com/page and there is no ```pagePattern()``` function in your app then ```patternLoad()``` is called instead.
+Your app can include a function called ```patternLoad()``` which will be called if there is no unique function for ```window.pattern``` eg. if the url is http://example.com/page and there is no ```page()``` function in your app then ```patternLoad()``` is called instead.
 
 ### Example
 
