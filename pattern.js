@@ -1,16 +1,16 @@
 /*
 
-Pattern v2.1
-A vanilla JavaScript router utilizing the HTML5 history API. Compatible with modern browsers only (ES6+).
+Pattern v2.2
+A JavaScript router utilizing the HTML5 history API. Compatible with modern browsers only (ES6+).
+
 https://github.com/adamwjohnson5/pattern
+
 By Adam Johnson
 MIT License 2019
 
 Usage:
 
-Pattern.init();
-
-history.pushState(null, null, 'about'); // Change URL with pushState
+Pattern.init(); // Change URL with pushState eg. history.pushState(null, null, 'about');
 
 */
 
@@ -18,57 +18,59 @@ history.pushState(null, null, 'about'); // Change URL with pushState
 
 class Pattern {
     static init(rootPath) { // Root path optional
-        window.section; // Global var
-        
-        // Listen for URL change
-        window.addEventListener('popstate', () => {
-            // Browser back or forward fired
-            urlHandler(rootPath);
-        });
-        
-        const pushState = history.pushState;
+        const state = history.pushState;
         
         history.pushState = function() {
-            pushState.apply(history, arguments);
+            state.apply(history, arguments);
             urlHandler(rootPath);
         };
+        
+        // Listen for browser back or forward
+        window.addEventListener('popstate', () => {
+            urlHandler(rootPath);
+        });
         
         urlHandler(rootPath); // Fire on init
     }
 }
 
 function urlHandler(rootPath) {
-    // Get section
+    // Set section
     var urlSection = location.pathname.replace(rootPath, ''); // Remove root path
     urlSection = urlSection.replace('/', '');
     
-    // Check for params
+    // Check for URL params
     if (urlSection.indexOf('?') !== -1) {
-        urlSection = urlSection.substr(0, urlSection.indexOf('?')); // Remove params from section
+        urlSection = urlSection.substr(0, urlSection.indexOf('?')); // Remove all URL params from section name
     }
     
-    // Rename to 'home' if section empty
-    if (! urlSection) {
-        urlSection = 'home';
-    }
-    
-    window.section = urlSection; // Set section global var
+    window.pattern = ! urlSection ? 'home' : urlSection; // Set global var to 'home' if empty
     
     // Get URL params
     var urlParams = location.search.split('?').pop();
     urlParams = new URLSearchParams(urlParams);
     
     // Loop all params and create global vars
-    for (let x of urlParams.entries()) {
-        window[x[0]] = x[1]; // Set global var
+    for (let param of urlParams.entries()) {
+        window[param[0] + 'Ptrn'] = param[1];
+    }
+    
+    // Loop all global vars
+    for(var name in window) {
+        let i = name.replace('Pattern', '');
+        
+        // Clear if not included in URL params
+        if (name.indexOf('Pattern') != -1 && ! urlParams.has(i)) {
+            window[name] = '';
+        }
     }
     
     // Call section function if exists
-    const func = window[urlSection + 'Load'];
+    const func = window[window.pattern + 'Pattern'];
     
     if (typeof func === 'function') {
         func();
-    } else if (typeof rewriteLoad === 'function') { // Check for rewrite func
-        rewriteLoad(); // Use to call other load function
+    } else if (typeof patternLoad === 'function') { // Check for generic func
+        patternLoad(); // Called only if section func not available
     }
 }
