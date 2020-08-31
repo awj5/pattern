@@ -4,6 +4,8 @@ A JavaScript router utilizing the HTML5 history API. Compatible with modern brow
 
 Pattern will assign variables on URL change and look for a function to call (examples below).
 
+<span style="color: red;">A server-side rewrite rule is usually required.</span>
+
 <img src="pattern.png" width="160" height="200">
 
 ## Initialize
