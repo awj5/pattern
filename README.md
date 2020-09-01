@@ -4,7 +4,7 @@ A JavaScript router utilizing the HTML5 history API. Compatible with modern brow
 
 Pattern will assign variables on URL change and look for a function to call (examples below).
 
-❗❗❗**A server-side rewrite rule is usually required.**❗❗❗
+**❗❗❗A server-side rewrite rule is usually required.❗❗❗**
 
 <img src="pattern.png" width="160" height="200">
 
@@ -34,8 +34,6 @@ let patrn = new Pattern('/myapp');
 ```
 
 Your app can include a function called ```patternChange()``` which will be called whenever there is a URL change.
-
-### Example
 
 ```
 function patternChange() {
