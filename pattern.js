@@ -1,6 +1,6 @@
 /*
 
-Pattern v2.2
+Pattern v2.3
 A JavaScript router utilizing the HTML5 history API. Compatible with modern browsers only (ES6+).
 
 https://github.com/adamwjohnson5/pattern
@@ -10,67 +10,83 @@ MIT License 2019
 
 Usage:
 
-Pattern.init(); // Change URL with pushState eg. history.pushState(null, null, 'about');
+let patrn = new Pattern();
+patrn.init();
+
+history.pushState(null, null, 'about'); // Change URL with pushState
 
 */
 
 "use strict";
 
 class Pattern {
-    static init(rootPath) { // Root path optional
+    constructor(path) {
+        this.path = path; // Root path optional
+        this.storedParams = [];
+    }
+    
+    init() {
         const state = history.pushState;
+        const self = this;
         
         history.pushState = function() {
             state.apply(history, arguments);
-            urlHandler(rootPath);
+            self.urlHandler();
         };
         
         // Listen for browser back or forward
         window.addEventListener('popstate', () => {
-            urlHandler(rootPath);
+            self.urlHandler();
         });
         
-        urlHandler(rootPath); // Fire on init
+        self.urlHandler(); // Fire on init
     }
-}
+    
+    urlHandler() {
+        // Set section
+        var urlSection = location.pathname.replace(this.path, ''); // Remove root path if defined
+        urlSection = urlSection.replace('/', '');
 
-function urlHandler(rootPath) {
-    // Set section
-    var urlSection = location.pathname.replace(rootPath, ''); // Remove root path
-    urlSection = urlSection.replace('/', '');
-    
-    // Check for URL params
-    if (urlSection.indexOf('?') !== -1) {
-        urlSection = urlSection.substr(0, urlSection.indexOf('?')); // Remove all URL params from section
-    }
-    
-    window.pattern = ! urlSection ? 'home' : urlSection; // Set section var to 'home' if empty
-    
-    // Get URL params
-    var urlParams = location.search.split('?').pop();
-    urlParams = new URLSearchParams(urlParams);
-    
-    // Loop all params and create global vars
-    for (let param of urlParams.entries()) {
-        window[param[0]] = param[1];
-    }
-    
-    // Loop all global vars
-    for(var name in window) {
-        let i = name.replace('Pattern', '');
-        
-        // Clear if not included in URL params
-        if (name.indexOf('Pattern') != -1 && ! urlParams.has(i)) {
-            window[name] = '';
+        // Check for URL params
+        if (urlSection.indexOf('?') !== -1) {
+            urlSection = urlSection.substr(0, urlSection.indexOf('?')); // Remove all URL params from section name
         }
-    }
-    
-    // Call section function if exists
-    const func = window[window.pattern];
-    
-    if (typeof func === 'function') {
-        func();
-    } else if (typeof patternLoad === 'function') { // Check for generic func
-        patternLoad(); // Called only if section func not available
-    }
+
+        window.pattern = ! urlSection ? 'home' : urlSection; // Set section var to 'home' if empty
+        
+        // Get URL params
+        var urlParams = location.search.split('?').pop();
+        urlParams = new URLSearchParams(urlParams);
+        
+        // Loop stored params
+        for (let x = 0; x < this.storedParams.length; x++) {
+            var paramName = this.storedParams[x];
+            
+            // Clear var if param no longer included in URL
+            if (! urlParams.has(paramName)) {
+                window[paramName] = '';
+            }
+        }
+        
+        this.storedParams = []; // Reset
+
+        // Loop all params and create vars
+        for (let param of urlParams.entries()) {
+            let paramName = param[0];
+            window[paramName] = param[1];
+            this.storedParams.push(paramName);
+        }
+
+        // Call section function if exists
+        const func = window[window.pattern];
+
+        if (typeof func === 'function') {
+            func();
+        }
+
+        // Call change function if exists
+        if (typeof patternChange === 'function') {
+            patternChange();
+        }
+    } 
 }

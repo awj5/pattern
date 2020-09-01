@@ -8,10 +8,13 @@ Pattern will assign variables on URL change and look for a function to call (exa
 
 <img src="pattern.png" width="160" height="200">
 
-## Initialize
+## Usage
 
 ```
-Pattern.init(); // Change URL with pushState eg. history.pushState(null, null, 'about');
+let patrn = new Pattern();
+patrn.init();
+
+history.pushState(null, null, 'about'); // Change URL with pushState
 ```
 
 ## Examples
@@ -27,15 +30,15 @@ This URL will look for a function called ```home()``` (```'home'``` is used when
 When you initiate Pattern you can include a root path. This is useful if your app is not located in the root of your domain ie. https://example.com/myapp
 
 ```
-Pattern.init('myapp/');
+let patrn = new Pattern('/myapp');
 ```
 
-Your app can include a function called ```patternLoad()``` which will be called if there is no unique function for ```window.pattern``` eg. if the url is http://example.com/page and there is no ```page()``` function in your app then ```patternLoad()``` is called instead.
+Your app can include a function called ```patternChange()``` which will be called whenever there is a URL change.
 
 ### Example
 
 ```
-function patternLoad() {
+function patternChange() {
     console.log(window.pattern);
 }
 ```
