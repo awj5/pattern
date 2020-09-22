@@ -16,7 +16,6 @@ patrn.init();
 history.pushState(null, null, 'about'); // Change URL with pushState
 
 */
-
 'use strict';
 
 class Pattern {
@@ -29,7 +28,7 @@ class Pattern {
         const state = history.pushState;
         const self = this;
 
-        history.pushState = function () {
+        history.pushState = function() {
             state.apply(history, arguments);
             self.urlHandler();
         };
