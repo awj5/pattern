@@ -1,7 +1,7 @@
 /*
 
 Pattern v2.3
-A JavaScript router utilizing the HTML5 history API. Compatible with modern browsers only (ES6+).
+A JavaScript router utilising the HTML5 history API. Compatible with modern browsers only (ES6+).
 
 https://github.com/adamwjohnson5/pattern
 
@@ -38,7 +38,7 @@ class Pattern {
             self.urlHandler();
         });
 
-        self.urlHandler(); // Fire on init
+        self.urlHandler();
     }
 
     urlHandler() {
