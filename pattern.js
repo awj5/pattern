@@ -51,7 +51,7 @@ class Pattern {
             urlSection = urlSection.substr(0, urlSection.indexOf('?')); // Remove all URL params from section name
         }
 
-        window.pattern = !urlSection ? 'home' : urlSection; // Set section var to 'home' if empty
+        window.pattern = ! urlSection ? 'home' : urlSection; // Set section var to 'home' if empty
 
         // Get URL params
         var urlParams = location.search.split('?').pop();
@@ -62,7 +62,7 @@ class Pattern {
             var paramName = this.storedParams[x];
 
             // Clear var if param no longer included in URL
-            if (!urlParams.has(paramName)) {
+            if (! urlParams.has(paramName)) {
                 window[paramName] = '';
             }
         }
