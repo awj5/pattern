@@ -3,7 +3,7 @@
 Pattern v2.3
 A JavaScript router utilising the HTML5 history API. Compatible with modern browsers only (ES6+).
 
-https://github.com/adamwjohnson5/pattern
+https://github.com/ax5dam/pattern
 
 By Adam Johnson
 MIT License 2019
