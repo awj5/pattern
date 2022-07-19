@@ -1,6 +1,6 @@
 /*
 
-Pattern v2.3
+Pattern v3
 A JavaScript router utilising the HTML5 history API. Compatible with modern browsers only (ES6+).
 
 https://github.com/awj5/pattern
@@ -11,20 +11,22 @@ MIT License 2019
 Usage:
 
 let patrn = new Pattern();
-patrn.init();
+patrn.init(callBack);
 
 history.pushState(null, null, 'about'); // Change URL with pushState
 
 */
 'use strict';
 
-class Pattern {
+export class Pattern {
     constructor(path) {
         this.path = path; // Root path optional
+        this.pattern;
         this.storedParams = [];
     }
 
-    init() {
+    init(callback) {
+        this.callback = callback; // Required
         const state = history.pushState;
         const self = this;
 
@@ -51,7 +53,7 @@ class Pattern {
             urlSection = urlSection.substr(0, urlSection.indexOf('?')); // Remove all URL params from section name
         }
 
-        window.pattern = ! urlSection ? 'home' : urlSection; // Set section var to 'home' if empty
+        this.pattern = ! urlSection ? 'home' : urlSection; // Set section var to 'home' if empty
 
         // Get URL params
         var urlParams = location.search.split('?').pop();
@@ -63,7 +65,7 @@ class Pattern {
 
             // Clear var if param no longer included in URL
             if (! urlParams.has(paramName)) {
-                window[paramName] = '';
+                this[paramName] = '';
             }
         }
 
@@ -72,20 +74,10 @@ class Pattern {
         // Loop all params and create vars
         for (let param of urlParams.entries()) {
             let paramName = param[0];
-            window[paramName] = param[1];
+            this[paramName] = param[1];
             this.storedParams.push(paramName);
         }
 
-        // Call section function if exists
-        const func = window[window.pattern];
-
-        if (typeof func === 'function') {
-            func();
-        }
-
-        // Call change function if exists
-        if (typeof patternChange === 'function') {
-            patternChange();
-        }
+        this.callback();
     }
 }
