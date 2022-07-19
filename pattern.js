@@ -11,7 +11,7 @@ MIT License 2019
 Usage:
 
 let patrn = new Pattern();
-patrn.init(callBack);
+patrn.init(callBack); // Callback is required
 
 history.pushState(null, null, 'about'); // Change URL with pushState
 
@@ -21,7 +21,7 @@ history.pushState(null, null, 'about'); // Change URL with pushState
 export class Pattern {
     constructor(path) {
         this.path = path; // Root path optional
-        this.pattern;
+        this.page;
         this.storedParams = [];
     }
 
@@ -53,7 +53,7 @@ export class Pattern {
             urlSection = urlSection.substr(0, urlSection.indexOf('?')); // Remove all URL params from section name
         }
 
-        this.pattern = ! urlSection ? 'home' : urlSection; // Set section var to 'home' if empty
+        this.page = ! urlSection ? 'home' : urlSection; // Set section var to 'home' if empty
 
         // Get URL params
         var urlParams = location.search.split('?').pop();
